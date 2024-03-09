@@ -130,7 +130,7 @@ window.onload = function () {
     let template = '{{Waves'
 
     waveData.forEach(function (wave, i) {
-      template += '<br>| zombie' + i + ' = ' + fillZombie(wave['zombie'], zombieDictionary)
+      template += '<br>| zombie' + (i+1) + ' = ' + fillZombie(wave['zombie'], zombieDictionary)
     })
 
     template += '<br>}}'
