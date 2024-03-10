@@ -23,26 +23,52 @@
 
 <body>
   <script type="text/javascript" src="js/index.js"></script>
-  <div class="main">
-    <div class="bar">
-      <div class="level_upload_holder">
-        <label for="levelJson" class="upload">
-          UPLOAD
-        </label>
-        <input id="levelJson" type="file" accept="application/json" />
+  <div class="outer">
+    <div class="inner">
+      <div class="bar">
+        <div class="levelUploadHolder">
+          <label for="levelJson" class="upload">
+            UPLOAD
+          </label>
+          <input id="levelJson" type="file" accept="application/json" />
+        </div>
+        <div class="dataUploadHolder">
+          <label for="dataJson" class="upload">
+            DATA
+          </label>
+          <input id="dataJson" type="file" accept="application/json" />
+        </div>
       </div>
-      <div class="data_upload_holder">
-        <label for="dataJson" class="upload">
-          DATA
-        </label>
-        <input id="dataJson" type="file" accept="application/json" />
+      <div class="hArrange">
+        <div class="vArrange">
+          <div class="box">
+            <div class="title">
+              <label class="titleText">Waves</label>
+            </div>
+            <div class="card">
+              <p id="waves" class="output"></p>
+            </div>
+          </div>
+        </div>
+        <div class="vArrange">
+          <div class="box">
+            <div class="title">
+              <label class="titleText">Zombies</label>
+            </div>
+            <div class="card">
+              <p id="zombies" class="output"></p>
+            </div>
+          </div>
+          <div class="box">
+            <div class="title">
+              <label class="titleText">Plants</label>
+            </div>
+            <div class="card">
+              <p id="plants" class="output"></p>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="title">
-      <label class="titleText">Output</label>
-    </div>
-    <div class="card">
-      <p id="print" class="output"></p>
     </div>
   </div>
 </body>

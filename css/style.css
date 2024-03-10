@@ -11,19 +11,28 @@ body {
   min-height: 95vh;
 }
 
-.main {
+.outer {
   flex: 1;
-  box-shadow: 0 0 0.125rem black;
-  border: 3px solid #301200;
+  border: 3px outset #ECAB6B;
   outline: 3px solid #301200;
-  outline-offset: -0.75rem;
   background: #B17342;
   margin: 2% auto auto;
-  width: 80%;
-  padding: 1.5rem;
+  width: 90%;
+  padding: 0.25rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.inner {
+  flex: 1;
+  border: 3px solid #301200;
+  background: #B17342;
+  padding: 1rem;
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
+  row-gap: 1rem
 }
 
 .bar {
@@ -32,31 +41,55 @@ body {
   row-gap: 0.5rem
 }
 
-.level_upload_holder {
+.levelUploadHolder {
   flex: 1;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
-.data_upload_holder {
+.dataUploadHolder {
   flex: 1;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
+}
+
+.hArrange {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem
+}
+
+.vArrange {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+   row-gap: 1rem
+}
+
+.box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  box-shadow: 0.25rem 0.5rem 0.125rem #583821;
+  overflow: hidden;
 }
 
 .title {
   min-height: 4rem;
-  margin: 2% 0 auto;
-  border: 1px solid black;
-  border-bottom-style: none;
   background: linear-gradient(0deg, rgb(187, 153, 26) 0%, rgb(252, 210, 63) 100%);
-  border-radius: 0.5rem 0.5rem 0 0;
-  box-shadow: 0.25rem 0.5rem 0 #583821;
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+.card {
+  flex: 1;
+  background: linear-gradient(0deg, rgb(238, 229, 200) 0%, rgb(240, 233, 194) 100%);
 }
 
 .titleText {
@@ -67,16 +100,6 @@ body {
   text-shadow: 3px 3px 0 #66570C;
   color: white;
   align-self: center;
-}
-
-.card {
-  flex: 1;
-  border: 1px solid black;
-  border-top-style: none;
-  background: linear-gradient(0deg, rgb(238, 229, 200) 0%, rgb(240, 233, 194) 100%);
-  border-radius: 0 0 0.5rem 0.5rem;
-  box-shadow: 0.25rem 0.5rem 0.125rem #583821;
-  overflow-y: scroll;
 }
 
 .card::-webkit-scrollbar {
@@ -128,10 +151,15 @@ input[type="file"] {
     width: auto;
     min-width: 4rem;
   }
+
+  .hArrange {
+    flex-direction: row;
+    column-gap: 1rem;
+  }
 }
 
 @media only screen and (min-width: 1080px) and (orientation: landscape) {
-  .title {
+  .box {
     margin: 1% 0 auto;
   }
 

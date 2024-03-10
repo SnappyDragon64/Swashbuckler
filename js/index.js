@@ -12,10 +12,7 @@ window.onload = async function () {
   let levelData
 
   if (zombieData == null) {
-    document.getElementById('print').textContent = 'Default zombie data loaded.'
     zombieData = defaultData
-  } else {
-    document.getElementById('print').textContent = 'Custom zombie data loaded.'
   }
 
 
@@ -27,16 +24,13 @@ window.onload = async function () {
       zombieData = e.target.result
       localStorage.setItem('data', zombieData.toString())
 
-      if (levelData == null) {
-        document.getElementById('print').textContent = 'Custom zombie data loaded.'
-      } else {
+      if (levelData != null) {
         convert()
       }
     };
 
     reader.onerror = function () {
       zombieData = defaultData
-      document.getElementById('print').textContent = 'Custom zombie data invalid. Default zombie data loaded.'
     };
 
     reader.readAsText(file);
@@ -49,10 +43,6 @@ window.onload = async function () {
     reader.onload = function (e) {
       levelData = e.target.result
       convert()
-    };
-
-    reader.onerror = function () {
-      document.getElementById('print').textContent = 'Level data invalid.'
     };
 
     reader.readAsText(file);
@@ -136,12 +126,14 @@ window.onload = async function () {
     let template = '{{Waves'
 
     waveData.forEach(function (wave, i) {
-      template += '<br>|zombie' + (i + 1) + ' = ' + fillZombie(wave['zombie'], zombieDictionary)
+      let fill = fillZombie(wave['zombie'], zombieDictionary)
+      template += '<br>|zombie' + (i + 1) + ' = ' + fill
     })
 
     template += '<br>}}'
     console.log(template)
-    document.getElementById('print').innerHTML = template
+    document.getElementById('waves').innerHTML = template
+    generateZombieList(template, zombieDictionary)
   }
 
   function fillZombie(dataZombies, zombieDictionary) {
@@ -171,5 +163,31 @@ window.onload = async function () {
     } else {
       return 'None'
     }
+  }
+
+  function generateZombieList(template, zombieDictionary) {
+    let almanacOrder = Object.values(zombieDictionary)
+    let rawZombieList = template.split(/(?![^{]*}})\s+/).filter(str => str.startsWith("{{S"));
+    let zombieList = []
+    rawZombieList.forEach(function (rawZombie) {
+      rawZombie = rawZombie.replace('{{S|', '')
+      let zombie = rawZombie.split('}}')[0]
+      zombieList.push(zombie)
+    })
+    zombieList = [...new Set(zombieList)]
+
+    zombieList = zombieList.sort((a, b) => {
+      const getIndex = (item) => {
+        let result = almanacOrder.filter(a => (a['name'] ?? a) === item)
+        if (result.length) {
+          return almanacOrder.indexOf(result[0])
+        }
+
+        return -1;
+      };
+
+      return getIndex(a) - getIndex(b);
+    })
+    document.getElementById('zombies').innerText = zombieList.join(', ')
   }
 }
