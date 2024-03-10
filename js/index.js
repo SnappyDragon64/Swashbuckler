@@ -1,15 +1,25 @@
-window.onload = function () {
+window.onload = async function () {
+  let defaultData
+  await fetch('data/data.json').then(response => {
+    if (response.ok)
+      return response.json()
+  }).then(data => {
+    defaultData = data
+  })
+  console.log(defaultData)
+
   let zombieData = localStorage.getItem('data')
   let levelData
 
   if (zombieData == null) {
-    document.getElementById('print').textContent = 'Data not found.'
+    document.getElementById('print').textContent = 'Default zombie data loaded.'
+    zombieData = defaultData
   } else {
-    document.getElementById('print').textContent = 'Data found.'
+    document.getElementById('print').textContent = 'Custom zombie data loaded.'
   }
 
 
-  document.getElementById('dataJson').addEventListener('change', function(event) {
+  document.getElementById('dataJson').addEventListener('change', function (event) {
     const file = event.target.files[0];
     const reader = new FileReader();
 
@@ -18,35 +28,31 @@ window.onload = function () {
       localStorage.setItem('data', zombieData.toString())
 
       if (levelData == null) {
-        document.getElementById('print').textContent = 'Data loaded.'
+        document.getElementById('print').textContent = 'Custom zombie data loaded.'
       } else {
         convert()
       }
     };
 
     reader.onerror = function () {
-      document.getElementById('print').textContent = 'Data invalid.'
+      zombieData = defaultData
+      document.getElementById('print').textContent = 'Custom zombie data invalid. Default zombie data loaded.'
     };
 
     reader.readAsText(file);
   })
 
-  document.getElementById('levelJson').addEventListener('change', function(event) {
+  document.getElementById('levelJson').addEventListener('change', function (event) {
     const file = event.target.files[0];
     const reader = new FileReader();
 
     reader.onload = function (e) {
       levelData = e.target.result
-
-      if (zombieData == null) {
-        document.getElementById('print').textContent = 'Data not found.'
-      } else {
-        convert()
-      }
+      convert()
     };
 
     reader.onerror = function () {
-      document.getElementById('print').textContent = 'Level invalid.'
+      document.getElementById('print').textContent = 'Level data invalid.'
     };
 
     reader.readAsText(file);
@@ -130,7 +136,7 @@ window.onload = function () {
     let template = '{{Waves'
 
     waveData.forEach(function (wave, i) {
-      template += '<br>| zombie' + (i+1) + ' = ' + fillZombie(wave['zombie'], zombieDictionary)
+      template += '<br>|zombie' + (i + 1) + ' = ' + fillZombie(wave['zombie'], zombieDictionary)
     })
 
     template += '<br>}}'
