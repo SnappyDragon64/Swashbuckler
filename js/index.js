@@ -177,16 +177,8 @@ window.onload = async function () {
     zombieList = [...new Set(zombieList)]
 
     zombieList = zombieList.sort((a, b) => {
-      const getIndex = (item) => {
-        let result = almanacOrder.filter(a => (a['name'] ?? a) === item)
-        if (result.length) {
-          return almanacOrder.indexOf(result[0])
-        }
-
-        return -1;
-      };
-
-      return getIndex(a) - getIndex(b);
+      const getIndex = (item) => almanacOrder.findIndex(el => (el['name'] ?? el) === item)
+      return getIndex(a) - getIndex(b)
     })
     document.getElementById('zombies').innerText = zombieList.join(', ')
   }
