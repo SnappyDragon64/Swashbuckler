@@ -49,7 +49,11 @@ window.onload = async function () {
   })
 
   function convert() {
-    let zombieDictionary = JSON.parse(zombieData)
+    let zombieDictionary = zombieData
+    if (typeof zombieDictionary === 'string') {
+      zombieDictionary = JSON.parse(zombieDictionary);
+    }
+
     let levelDictionary = JSON.parse(levelData)
     let almanacOrder = Object.keys(zombieDictionary)
 
